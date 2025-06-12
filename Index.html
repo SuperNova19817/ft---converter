@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foot Converter</title>
+  <style>
+    body { font-family: sans-serif; max-width: 400px; margin: 2rem auto; padding: 1rem; }
+    label, select, input, button { display: block; width: 100%; margin-bottom: 1rem; }
+    button { padding: 0.5rem; }
+    #result { font-weight: bold; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>International ↔ U.S. Survey Feet</h1>
+  <label for="value">Value (feet):</label>
+  <input type="number" id="value" step="any" placeholder="Enter feet" /><label for="fromUnit">From:</label> <select id="fromUnit"> <option value="intl">International</option> <option value="us_survey">U.S. Survey</option> </select>
+
+<label for="toUnit">To:</label> <select id="toUnit"> <option value="us_survey">U.S. Survey</option> <option value="intl">International</option> </select>
+
+<button id="convertBtn">Convert</button>
+
+  <div id="result"></div>  <script>
+    const intlFoot = 0.3048;
+    const usSurveyFoot = 1200/3937;
+
+    document.getElementById('convertBtn').addEventListener('click', () => {
+      const val = parseFloat(document.getElementById('value').value);
+      const from = document.getElementById('fromUnit').value;
+      const to = document.getElementById('toUnit').value;
+      if (isNaN(val)) {
+        document.getElementById('result').textContent = 'Please enter a numeric value.';
+        return;
+      }
+      let meters = val * (from === 'intl' ? intlFoot : usSurveyFoot);
+      let converted = meters / (to === 'intl' ? intlFoot : usSurveyFoot);
+      document.getElementById('result').textContent = `${val} ${from === 'intl' ? 'International' : 'U.S. Survey'} ft = ${converted.toFixed(6)} ${to === 'intl' ? 'International' : 'U.S. Survey'} ft`;
+    });
+  </script></body>
+</html><!--
+Instructions:
+1. Save this file as index.html and host it on any static web server (GitHub Pages, Netlify, etc.).
+2. Visit the hosted URL on your phone or desktop.
+3. To access quickly, generate a QR code pointing to the URL and scan with your phone.
+-->
